@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PartyLAN — Portable LAN Gaming Hub
 
-## Getting Started
+A compact, Raspberry Pi 5-powered hub for high-speed LAN gaming. Built as a senior capstone project at San José State University (TECH 190B).
 
-First, run the development server:
+## What It Does
+- Caches game files locally (Steam, Blizzard) on a 1TB NVMe SSD
+- Provides wired USB-C/Ethernet connectivity for up to 4 devices
+- Eliminates Wi-Fi lag with direct gigabit LAN connections
+- Works without internet — fully offline multiplayer
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Tech Stack
+- **Framework:** Next.js 14 + TypeScript
+- **Styling:** Tailwind CSS
+- **Hosting:** Vercel
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Hardware
+- Raspberry Pi 5
+- 1TB NVMe SSD
+- 5-Port Gigabit Switch
+- 3× USB-C to Ethernet Adapters
+- Custom 3D-printed PLA enclosure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Team
+- Jayeesh Tarachandani — Project Manager
+- Rishabh Jinesh — Design Engineer
+- Jinwoo Ahn — Team Member
+- Advisor: Dr. Nik Tehrani
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Live Site
+[partylan.vercel.app](https://partylan.vercel.app)
