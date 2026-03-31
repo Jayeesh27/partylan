@@ -110,6 +110,15 @@ const specs = [
   { label: "Prototype Cost", value: "$239", icon: "💰" },
 ];
 
+const bom = [
+  { item: "Raspberry Pi 5", cost: "$99" },
+  { item: "1TB NVMe SSD", cost: "$82" },
+  { item: "5-Port Switch", cost: "$16" },
+  { item: "USB-C Adapters (×3)", cost: "$30" },
+  { item: "Ethernet Cables (×2)", cost: "$7" },
+  { item: "Ethernet Extender", cost: "$5" },
+];
+
 const team = [
   {
     name: "Jayeesh Tarachandani",
@@ -132,6 +141,15 @@ const team = [
     details:
       "Hardware compatibility testing, slide preparation, prototype assembly support",
   },
+];
+
+const milestones = [
+  { date: "Oct 2025", title: "Research & component selection" },
+  { date: "Nov 2025", title: "CAD design & BOM finalized" },
+  { date: "Jan 2026", title: "3D printing & hardware assembly" },
+  { date: "Feb 2026", title: "Software integration & LAN cache config" },
+  { date: "Mar 2026", title: "Performance testing & documentation" },
+  { date: "May 2026", title: "Final presentation & demo" },
 ];
 
 /* ──────────────────────────────
@@ -422,6 +440,38 @@ export default function Home() {
               </div>
             ))}
           </div>
+
+          {/* Bill of Materials */}
+          <div className="mt-20">
+            <h3 className="text-center text-xl font-semibold sm:text-2xl">
+              Bill of{" "}
+              <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                Materials
+              </span>
+            </h3>
+            <div className="mx-auto mt-8 max-w-md overflow-hidden rounded-xl border border-neutral-800">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-neutral-800 bg-neutral-900/80">
+                    <th className="px-5 py-3 text-left font-medium text-neutral-400">Component</th>
+                    <th className="px-5 py-3 text-right font-medium text-neutral-400">Cost</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {bom.map((row) => (
+                    <tr key={row.item} className="border-b border-neutral-800/50 transition hover:bg-neutral-900/60">
+                      <td className="px-5 py-3 text-neutral-200">{row.item}</td>
+                      <td className="px-5 py-3 text-right text-neutral-300">{row.cost}</td>
+                    </tr>
+                  ))}
+                  <tr className="bg-neutral-900/80">
+                    <td className="px-5 py-3 font-semibold text-white">Total</td>
+                    <td className="px-5 py-3 text-right font-semibold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">$239</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -482,6 +532,49 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ───── PROJECT TIMELINE SECTION ───── */}
+      <section id="timeline" className="fade-in-section px-6 py-24">
+        <div className="mx-auto max-w-5xl">
+          {/* Section heading */}
+          <h2 className="text-center text-3xl font-bold sm:text-4xl">
+            Project{" "}
+            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+              Timeline
+            </span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
+            Key milestones from concept to demo.
+          </p>
+
+          {/* Timeline */}
+          <div className="relative mt-16">
+            {/* Horizontal line (hidden on mobile) */}
+            <div className="absolute top-5 left-0 right-0 hidden h-[2px] bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 sm:block" />
+
+            <div className="grid gap-8 sm:grid-cols-6">
+              {milestones.map((m, i) => (
+                <div key={m.date} className="relative flex flex-col items-center text-center">
+                  {/* Dot */}
+                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-500/50 bg-neutral-950">
+                    <div className="h-3 w-3 rounded-full bg-gradient-to-br from-purple-400 to-cyan-400" />
+                  </div>
+                  {/* Vertical connector on mobile */}
+                  {i < milestones.length - 1 && (
+                    <div className="h-8 w-[2px] bg-gradient-to-b from-purple-500/30 to-cyan-500/30 sm:hidden" />
+                  )}
+                  <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-purple-400">
+                    {m.date}
+                  </p>
+                  <p className="mt-1 text-sm leading-snug text-neutral-400">
+                    {m.title}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ───── FAQ SECTION ───── */}
       <section id="faq" className="fade-in-section px-6 py-24">
         <div className="mx-auto max-w-3xl">
@@ -530,16 +623,14 @@ export default function Home() {
           </span>
 
           {/* Links */}
-          <nav className="flex gap-6 text-sm text-neutral-400">
-            <a href="#features" className="transition hover:text-white">
-              Features
-            </a>
-            <a href="#how-it-works" className="transition hover:text-white">
-              How It Works
-            </a>
-            <a href="#faq" className="transition hover:text-white">
-              FAQ
-            </a>
+          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-400">
+            <a href="#features" className="transition hover:text-white">Features</a>
+            <a href="#architecture" className="transition hover:text-white">Architecture</a>
+            <a href="#how-it-works" className="transition hover:text-white">How It Works</a>
+            <a href="#specs" className="transition hover:text-white">Specs</a>
+            <a href="#team" className="transition hover:text-white">Team</a>
+            <a href="#timeline" className="transition hover:text-white">Timeline</a>
+            <a href="#faq" className="transition hover:text-white">FAQ</a>
             <a
               href="https://github.com/Jayeesh27/partylan"
               target="_blank"
