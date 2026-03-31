@@ -2,71 +2,100 @@
 
 import { useEffect, useState } from "react";
 
-// ─── PartyLAN Landing Page ───
-// Built with Tailwind CSS utility classes — no extra packages required.
-
 /* ──────────────────────────────────────────────
-   DATA — edit the arrays below to update content
+   DATA
    ────────────────────────────────────────────── */
 
 const features = [
   {
-    icon: "💾",
-    title: "Local Game Caching",
+    title: "Gigabit Game Caching",
     description:
-      "Cache Steam, Blizzard, and other game files locally. Multiple users download simultaneously at LAN speed.",
+      "Cache Steam & Blizzard files locally. Download once, play everywhere at LAN speed.",
   },
   {
-    icon: "⚡",
-    title: "Zero Latency",
+    title: "Zero Lag, Wired Only",
     description:
-      "Wired USB-C and Ethernet connections eliminate Wi-Fi lag. Feel every move in real time.",
+      "USB-C and Ethernet eliminate Wi-Fi completely. Every millisecond counts.",
   },
   {
-    icon: "🔌",
-    title: "No Internet Needed",
+    title: "Offline by Design",
     description:
-      "PartyLAN runs entirely on local network. No external connectivity required for multiplayer.",
-  },
-  {
-    icon: "🕹️",
-    title: "Plug & Play Setup",
-    description:
-      "Connect the hub, plug in your devices, and start gaming. No networking knowledge required.",
-  },
-  {
-    icon: "📦",
-    title: "Portable Design",
-    description:
-      "Custom 3D-printed enclosure with internal power management and organized cable routing. Take it anywhere.",
-  },
-  {
-    icon: "💰",
-    title: "Cost Effective",
-    description:
-      "Full prototype under $240. Open-source software stack with zero licensing fees.",
+      "No internet needed for multiplayer. The entire party runs locally.",
   },
 ];
 
 const steps = [
   {
     number: "01",
-    title: "Power Up the Hub",
+    title: "Power Up",
     description:
-      "Plug in the PartyLAN device. The Raspberry Pi 5 boots up and initializes the local caching server and network switch.",
+      "Plug in the PartyLAN hub. The Raspberry Pi 5 boots and initializes the caching server and network switch.",
   },
   {
     number: "02",
-    title: "Connect Your Devices",
+    title: "Connect Devices",
     description:
-      "Plug USB-C to Ethernet adapters into your laptops/PCs. The 5-port switch handles up to 4 client devices simultaneously.",
+      "Plug USB-C to Ethernet adapters into your laptops. The 5-port switch handles up to 4 clients simultaneously.",
   },
   {
     number: "03",
     title: "Cache & Play",
     description:
-      "Games are cached locally on the 1TB NVMe SSD. Download once, share across all connected devices at gigabit speeds.",
+      "Games are cached on the 1TB NVMe SSD. Download once, share across all connected devices at gigabit speeds.",
   },
+];
+
+const specs = [
+  { label: "Processor", value: "Raspberry Pi 5" },
+  { label: "Storage", value: "1TB NVMe SSD" },
+  { label: "Network", value: "5-Port Gigabit Ethernet" },
+  { label: "Adapters", value: "3× USB-C to Ethernet" },
+  { label: "Enclosure", value: "Custom 3D-printed (PLA)" },
+  { label: "Software", value: "Lancache (open-source)" },
+  { label: "Target Speed", value: "1 Gbps+ LAN" },
+  { label: "Prototype Cost", value: "$239" },
+];
+
+const bom = [
+  { item: "Raspberry Pi 5", cost: "$99" },
+  { item: "1TB NVMe SSD", cost: "$82" },
+  { item: "5-Port Switch", cost: "$16" },
+  { item: "USB-C Adapters (×3)", cost: "$30" },
+  { item: "Ethernet Cables (×2)", cost: "$7" },
+  { item: "Ethernet Extender", cost: "$5" },
+];
+
+const team = [
+  {
+    name: "Jayeesh Tarachandani",
+    initials: "JT",
+    role: "Project Manager",
+    details:
+      "Project coordination, LAN caching research, software configuration",
+  },
+  {
+    name: "Rishabh Jinesh",
+    initials: "RJ",
+    role: "Design Engineer",
+    details:
+      "CAD modeling, enclosure design, hardware procurement, BOM management",
+  },
+  {
+    name: "Jinwoo Ahn",
+    initials: "JA",
+    role: "Team Member",
+    details:
+      "Hardware compatibility testing, slide preparation, prototype assembly",
+  },
+];
+
+const milestones = [
+  { date: "Oct 2025", title: "Research & component selection" },
+  { date: "Nov 2025", title: "CAD design & BOM finalized" },
+  { date: "Jan 2026", title: "3D printing & assembly" },
+  { date: "Feb 2026", title: "Software integration" },
+  { date: "Mar 2026", title: "Testing & documentation" },
+  { date: "May 2026", title: "Final demo" },
 ];
 
 const faqs = [
@@ -97,74 +126,103 @@ const faqs = [
   },
 ];
 
-const specs = [
-  { label: "Processor", value: "Raspberry Pi 5", icon: "🧠" },
-  { label: "Storage", value: "1TB NVMe SSD", icon: "💾" },
-  { label: "Network Switch", value: "5-Port Gigabit Ethernet", icon: "🔀" },
-  { label: "Client Adapters", value: "3× USB-C to Ethernet", icon: "🔌" },
-  { label: "Cabling", value: "Cat6 Ethernet (×2) + Extender", icon: "🔗" },
-  { label: "Enclosure", value: "Custom 3D-printed (PLA)", icon: "📦" },
-  { label: "Software", value: "Open-source caching stack (Lancache)", icon: "🖥️" },
-  { label: "Target Speed", value: "1 Gbps+ LAN transfers", icon: "⚡" },
-  { label: "Power", value: "Internal power management", icon: "🔋" },
-  { label: "Prototype Cost", value: "$239", icon: "💰" },
+const NAV_LINKS = [
+  { label: "Features", href: "#features" },
+  { label: "Architecture", href: "#architecture" },
+  { label: "How It Works", href: "#how-it-works" },
+  { label: "Specs", href: "#specs" },
+  { label: "Team", href: "#team" },
+  { label: "Timeline", href: "#timeline" },
+  { label: "FAQ", href: "#faq" },
 ];
 
-const bom = [
-  { item: "Raspberry Pi 5", cost: "$99" },
-  { item: "1TB NVMe SSD", cost: "$82" },
-  { item: "5-Port Switch", cost: "$16" },
-  { item: "USB-C Adapters (×3)", cost: "$30" },
-  { item: "Ethernet Cables (×2)", cost: "$7" },
-  { item: "Ethernet Extender", cost: "$5" },
-];
+/* ──────────────────────────────────────────────
+   SIMPLE SVG ICONS (inline, no library)
+   ────────────────────────────────────────────── */
 
-const team = [
-  {
-    name: "Jayeesh Tarachandani",
-    initials: "JT",
-    role: "Project Manager",
-    details:
-      "Project coordination, LAN caching research, software configuration, schedule management",
-  },
-  {
-    name: "Rishabh Jinesh",
-    initials: "RJ",
-    role: "Design Engineer",
-    details:
-      "CAD modeling (SolidWorks), enclosure design, hardware procurement, BOM management",
-  },
-  {
-    name: "Jinwoo Ahn",
-    initials: "JA",
-    role: "Team Member",
-    details:
-      "Hardware compatibility testing, slide preparation, prototype assembly support",
-  },
-];
+function IconServer({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="2" y="2" width="20" height="8" rx="2" />
+      <rect x="2" y="14" width="20" height="8" rx="2" />
+      <circle cx="6" cy="6" r="1" fill="currentColor" />
+      <circle cx="6" cy="18" r="1" fill="currentColor" />
+    </svg>
+  );
+}
 
-const milestones = [
-  { date: "Oct 2025", title: "Research & component selection" },
-  { date: "Nov 2025", title: "CAD design & BOM finalized" },
-  { date: "Jan 2026", title: "3D printing & hardware assembly" },
-  { date: "Feb 2026", title: "Software integration & LAN cache config" },
-  { date: "Mar 2026", title: "Performance testing & documentation" },
-  { date: "May 2026", title: "Final presentation & demo" },
-];
+function IconStorage({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M4 7V4a2 2 0 0 1 2-2h8.5L20 7.5V20a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-3" />
+      <polyline points="14 2 14 8 20 8" />
+      <rect x="2" y="10" width="10" height="5" rx="1" />
+    </svg>
+  );
+}
 
-/* ──────────────────────────────
+function IconSwitch({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="1" y="6" width="22" height="12" rx="2" />
+      <line x1="6" y1="10" x2="6" y2="14" />
+      <line x1="10" y1="10" x2="10" y2="14" />
+      <line x1="14" y1="10" x2="14" y2="14" />
+      <line x1="18" y1="10" x2="18" y2="14" />
+    </svg>
+  );
+}
+
+function IconLaptop({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3" y="4" width="18" height="12" rx="2" />
+      <path d="M2 20h20" />
+    </svg>
+  );
+}
+
+function IconGlobe({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="10" />
+      <path d="M2 12h20" />
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z" />
+    </svg>
+  );
+}
+
+function IconCable({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M8 2v4" />
+      <path d="M16 2v4" />
+      <rect x="5" y="6" width="14" height="6" rx="2" />
+      <path d="M12 12v4" />
+      <rect x="8" y="16" width="8" height="4" rx="1" />
+    </svg>
+  );
+}
+
+function IconChevronDown({ className = "w-5 h-5" }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
+/* ──────────────────────────────────────────────
    PAGE COMPONENT
-   ────────────────────────────── */
+   ────────────────────────────────────────────── */
 
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    // ── Navbar scroll visibility ──
-    const onScroll = () => setScrolled(window.scrollY > 60);
+    const onScroll = () => setScrolled(window.scrollY > 80);
     window.addEventListener("scroll", onScroll, { passive: true });
 
-    // ── Intersection Observer for fade-in-up ──
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -173,10 +231,9 @@ export default function Home() {
           }
         });
       },
-      { threshold: 0.12 }
+      { threshold: 0.1 }
     );
-
-    document.querySelectorAll(".fade-in-section").forEach((el) => observer.observe(el));
+    document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 
     return () => {
       window.removeEventListener("scroll", onScroll);
@@ -185,468 +242,430 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-neutral-950 text-white">
-      {/* ───── FIXED NAVBAR ───── */}
+    <>
+      {/* Skip link */}
+      <a href="#main" className="skip-link">
+        Skip to main content
+      </a>
+
+      {/* ───── FIXED NAV ───── */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        role="banner"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "bg-neutral-950/70 backdrop-blur-xl border-b border-neutral-800/60 shadow-lg shadow-black/20"
-            : "pointer-events-none opacity-0 -translate-y-2"
+            ? "bg-[#0a0a0a]/80 backdrop-blur-2xl border-b border-[#1e1e1e]/60"
+            : "pointer-events-none opacity-0 -translate-y-1"
         }`}
       >
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-          <a href="#hero" className="text-lg font-bold tracking-tight">
-            🎮 Party
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              LAN
-            </span>
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+          <a
+            href="#hero"
+            className="font-headline text-lg font-bold tracking-tight text-[#f0f0f0]"
+          >
+            Party
+            <span className="text-[#00f0ff]">LAN</span>
           </a>
-          <nav className="hidden gap-5 text-sm text-neutral-400 sm:flex">
-            <a href="#features" className="transition hover:text-white">Features</a>
-            <a href="#specs" className="transition hover:text-white">Specs</a>
-            <a href="#how-it-works" className="transition hover:text-white">How It Works</a>
-            <a href="#team" className="transition hover:text-white">Team</a>
-            <a href="#faq" className="transition hover:text-white">FAQ</a>
+          <nav aria-label="Primary" className="hidden gap-6 text-sm text-[#888] sm:flex">
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="transition-colors duration-200 hover:text-[#f0f0f0] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f0ff]"
+              >
+                {link.label}
+              </a>
+            ))}
           </nav>
         </div>
       </header>
-      {/* ───── HERO SECTION ───── */}
-      <section
-        id="hero"
-        className="relative flex flex-col items-center justify-center px-6 pt-32 pb-24 text-center overflow-hidden"
-      >
-        {/* Background glow */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 h-[480px] w-[480px] rounded-full bg-purple-600/20 blur-[120px]"
-        />
 
-        {/* Headline */}
-        <h1 className="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-6xl">
-          The Portable{" "}
-          <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-            LAN Gaming
-          </span>{" "}
-          Hub
-        </h1>
+      <main id="main">
+        {/* ───── HERO ───── */}
+        <section
+          id="hero"
+          className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center"
+        >
+          {/* Animated orb */}
+          <div className="hero-orb" aria-hidden="true" />
 
-        {/* Subtitle */}
-        <p className="mt-6 max-w-xl text-lg text-neutral-400 sm:text-xl">
-          Plug in. Cache games. Play instantly. A compact, Raspberry Pi-powered
-          hub that brings high-speed LAN gaming anywhere — no internet required.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-          <a
-            href="#how-it-works"
-            className="rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 px-8 py-3 font-semibold text-white shadow-lg shadow-purple-500/25 transition hover:opacity-90"
+          {/* Headline */}
+          <h1
+            className="font-headline relative z-10 text-[clamp(4rem,12vw,10rem)] font-extrabold leading-[0.9] tracking-[-0.04em]"
+            style={{
+              backgroundImage: "linear-gradient(135deg, #00f0ff 0%, #ffffff 60%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
           >
-            See How It Works
-          </a>
-          <a
-            href="#specs"
-            className="rounded-full border border-neutral-700 px-8 py-3 font-semibold text-neutral-300 transition hover:border-neutral-500 hover:text-white"
-          >
-            View Specs
-          </a>
-        </div>
-      </section>
+            PartyLAN
+          </h1>
 
-      {/* ───── FEATURES SECTION ───── */}
-      <section id="features" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-6xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Why{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              PartyLAN
-            </span>
-            ?
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-center text-neutral-400">
-            Everything you need to host the perfect LAN party — in one compact device.
+          {/* Subheadline */}
+          <p className="font-headline relative z-10 mt-6 text-xl font-medium tracking-wide text-[#888] sm:text-2xl">
+            The Portable LAN Gaming Hub
           </p>
 
-          {/* Feature cards grid */}
-          <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature) => (
-              <div
-                key={feature.title}
-                className="group rounded-2xl border border-neutral-800 bg-neutral-900/60 p-6 transition hover:border-purple-500/40 hover:bg-neutral-900"
-              >
-                {/* Icon */}
-                <span className="text-4xl">{feature.icon}</span>
+          {/* One-liner */}
+          <p className="relative z-10 mt-4 max-w-md text-base text-[#555] sm:text-lg">
+            Plug in. Cache games. Play instantly. No internet required.
+          </p>
 
-                {/* Title */}
-                <h3 className="mt-4 text-lg font-semibold">{feature.title}</h3>
-
-                {/* Description */}
-                <p className="mt-2 text-sm leading-relaxed text-neutral-400">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+          {/* CTAs */}
+          <div className="relative z-10 mt-12 flex flex-col gap-4 sm:flex-row">
+            <a href="#how-it-works" className="btn-primary">
+              How It Works
+            </a>
+            <a href="#specs" className="btn-outline">
+              View Specs
+            </a>
           </div>
-        </div>
-      </section>
 
-      {/* ───── SYSTEM ARCHITECTURE SECTION ───── */}
-      <section id="architecture" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            System{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Architecture
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            How the components connect
-          </p>
+          {/* Scroll indicator */}
+          <div className="scroll-indicator absolute bottom-10 z-10" aria-hidden="true">
+            <IconChevronDown className="w-6 h-6 text-[#555]" />
+          </div>
+        </section>
 
-          {/* Diagram */}
-          <div className="mt-16 flex flex-col items-center gap-0">
-            {/* Row 1: Optional WAN */}
-            <div className="arch-node" style={{ opacity: 0.6 }}>
-              <span className="arch-node__icon">🌐</span>
-              <span className="arch-node__label">Internet (WAN)</span>
-              <span className="arch-node__sub">Initial cache download only</span>
-            </div>
-            <div className="arch-connector--v arch-connector--dashed" style={{ height: 32, background: "repeating-linear-gradient(to bottom, #a855f7 0px, #a855f7 6px, transparent 6px, transparent 12px)", opacity: 0.3 }} />
-
-            {/* Row 2: Ethernet Extender */}
-            <div className="arch-node">
-              <span className="arch-node__icon">🔗</span>
-              <span className="arch-node__label">Ethernet Extender</span>
-              <span className="arch-node__sub">Cat6 cable</span>
-            </div>
-            <div className="arch-connector--v" />
-
-            {/* Row 3: Core — SSD + RPi5 side by side */}
-            <div className="arch-row flex items-center justify-center gap-0" style={{ width: "100%" }}>
-              <div className="arch-node">
-                <span className="arch-node__icon">💾</span>
-                <span className="arch-node__label">1TB NVMe SSD</span>
-                <span className="arch-node__sub">Game cache storage</span>
-              </div>
-              <div className="arch-connector--h" />
-              <div className="arch-node arch-node--server" style={{ minWidth: 160 }}>
-                <span className="arch-node__icon text-4xl">🖥️</span>
-                <span className="arch-node__label text-base">Raspberry Pi 5</span>
-                <span className="arch-node__sub">Lancache Server</span>
-              </div>
-            </div>
-            <div className="arch-connector--v" />
-
-            {/* Row 4: Switch */}
-            <div className="arch-node">
-              <span className="arch-node__icon">🔀</span>
-              <span className="arch-node__label">5-Port Gigabit Switch</span>
-              <span className="arch-node__sub">1 Gbps+ throughput</span>
-            </div>
-            <div className="arch-connector--v" />
-
-            {/* Row 5: Clients label */}
-            <p className="mb-3 text-xs font-medium uppercase tracking-widest text-neutral-500">
-              USB-C → Ethernet Adapters
+        {/* ───── FEATURES ───── */}
+        <section id="features" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="font-headline text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-5xl">
+              Built for LAN Parties
+            </h2>
+            <p className="mt-4 max-w-lg text-[#555]">
+              Three things that make PartyLAN different from everything else.
             </p>
 
-            {/* Row 6: Client devices */}
-            <div className="arch-row flex flex-wrap items-start justify-center gap-4">
-              {[1, 2, 3, 4].map((n) => (
-                <div key={n} className="arch-node" style={{ minWidth: 100 }}>
-                  <span className="arch-node__icon">💻</span>
-                  <span className="arch-node__label">Client {n}</span>
-                  <span className="arch-node__sub">Laptop / PC</span>
+            <div className="mt-16 grid gap-6 sm:grid-cols-3">
+              {features.map((f) => (
+                <div key={f.title} className="glass-card p-8">
+                  <h3 className="font-headline text-lg font-semibold text-[#f0f0f0]">
+                    {f.title}
+                  </h3>
+                  <p className="mt-3 text-sm leading-relaxed text-[#888]">
+                    {f.description}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ───── HOW IT WORKS SECTION ───── */}
-      <section id="how-it-works" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-4xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            How It Works
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            Three simple steps to get the party started.
-          </p>
+        {/* ───── ARCHITECTURE ───── */}
+        <section id="architecture" className="reveal bg-[#080808] px-6 py-[120px]">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="font-headline text-center text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-4xl">
+              System Architecture
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-center text-[#555]">
+              How the components connect
+            </p>
 
-          {/* Steps */}
-          <div className="mt-16 flex flex-col gap-12">
-            {steps.map((step) => (
-              <div
-                key={step.number}
-                className="flex items-start gap-6"
-              >
-                {/* Step number */}
-                <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-500 text-xl font-bold">
-                  {step.number}
-                </span>
+            {/* Diagram */}
+            <div className="mt-16 flex flex-col items-center">
+              {/* WAN */}
+              <div className="arch-node" style={{ opacity: 0.55 }}>
+                <IconGlobe className="w-6 h-6 text-[#555]" />
+                <span className="arch-node__label">Internet</span>
+                <span className="arch-node__sub">Initial cache only</span>
+              </div>
+              <div className="arch-line-dashed" />
 
-                {/* Step content */}
-                <div>
-                  <h3 className="text-xl font-semibold">{step.title}</h3>
-                  <p className="mt-2 text-neutral-400">{step.description}</p>
+              {/* Extender */}
+              <div className="arch-node">
+                <IconCable className="w-6 h-6 text-[#888]" />
+                <span className="arch-node__label">Ethernet Extender</span>
+                <span className="arch-node__sub">Cat6</span>
+              </div>
+              <div className="arch-line-v" />
+
+              {/* Core row: SSD + RPi */}
+              <div className="arch-row-h flex items-center justify-center gap-0 w-full">
+                <div className="arch-node">
+                  <IconStorage className="w-6 h-6 text-[#888]" />
+                  <span className="arch-node__label">1TB NVMe SSD</span>
+                  <span className="arch-node__sub">Game cache</span>
+                </div>
+                <div className="arch-line-h" />
+                <div className="arch-node arch-node--server" style={{ minWidth: 160 }}>
+                  <IconServer className="w-8 h-8 text-[#00f0ff]" />
+                  <span className="arch-node__label text-base">Raspberry Pi 5</span>
+                  <span className="arch-node__sub">Lancache Server</span>
                 </div>
               </div>
-            ))}
+              <div className="arch-line-v" />
+
+              {/* Switch */}
+              <div className="arch-node">
+                <IconSwitch className="w-6 h-6 text-[#888]" />
+                <span className="arch-node__label">5-Port Gigabit Switch</span>
+                <span className="arch-node__sub">1 Gbps+</span>
+              </div>
+              <div className="arch-line-v" />
+
+              <p className="mb-3 text-xs font-medium uppercase tracking-[0.15em] text-[#555]">
+                USB-C to Ethernet
+              </p>
+
+              {/* Clients */}
+              <div className="arch-row-h flex flex-wrap justify-center gap-3">
+                {[1, 2, 3, 4].map((n) => (
+                  <div key={n} className="arch-node" style={{ minWidth: 90 }}>
+                    <IconLaptop className="w-5 h-5 text-[#888]" />
+                    <span className="arch-node__label">Client {n}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ───── TECH SPECS SECTION ───── */}
-      <section id="specs" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-5xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Tech{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Specs
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            Everything inside the box — engineered for speed, portability, and
-            simplicity.
-          </p>
+        {/* ───── HOW IT WORKS ───── */}
+        <section id="how-it-works" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="font-headline text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-5xl">
+              How It Works
+            </h2>
+            <p className="mt-4 max-w-lg text-[#555]">
+              Three steps to get the party started.
+            </p>
 
-          {/* Spec cards grid */}
-          <div className="mt-16 grid gap-4 sm:grid-cols-2">
-            {specs.map((spec) => (
-              <div
-                key={spec.label}
-                className="group relative rounded-2xl p-[1px] transition-all duration-300 hover:shadow-[0_0_24px_rgba(168,85,247,0.15)]"
-              >
-                {/* Gradient border layer */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neutral-800 to-neutral-800 transition-all duration-300 group-hover:from-purple-500/50 group-hover:to-cyan-500/50" />
+            <div className="relative mt-16 flex flex-col gap-16">
+              {/* Vertical connecting line */}
+              <div className="step-line" aria-hidden="true" />
 
-                {/* Card content */}
-                <div className="relative flex items-center gap-4 rounded-2xl bg-neutral-900/95 px-5 py-4">
-                  <span className="text-2xl">{spec.icon}</span>
+              {steps.map((step) => (
+                <div key={step.number} className="relative flex items-start gap-8">
+                  {/* Number */}
+                  <span className="font-headline flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#1e1e1e] bg-[#111] text-xl font-bold text-[#00f0ff]">
+                    {step.number}
+                  </span>
+                  {/* Content */}
                   <div>
-                    <p className="text-xs font-medium uppercase tracking-wider text-neutral-500">
-                      {spec.label}
-                    </p>
-                    <p className="text-base font-semibold text-neutral-100">
-                      {spec.value}
+                    <h3 className="font-headline text-xl font-semibold text-[#f0f0f0]">
+                      {step.title}
+                    </h3>
+                    <p className="mt-2 text-[#888] leading-relaxed">
+                      {step.description}
                     </p>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Bill of Materials */}
-          <div className="mt-20">
-            <h3 className="text-center text-xl font-semibold sm:text-2xl">
-              Bill of{" "}
-              <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                Materials
-              </span>
-            </h3>
-            <div className="mx-auto mt-8 max-w-md overflow-hidden rounded-xl border border-neutral-800">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-neutral-800 bg-neutral-900/80">
-                    <th className="px-5 py-3 text-left font-medium text-neutral-400">Component</th>
-                    <th className="px-5 py-3 text-right font-medium text-neutral-400">Cost</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bom.map((row) => (
-                    <tr key={row.item} className="border-b border-neutral-800/50 transition hover:bg-neutral-900/60">
-                      <td className="px-5 py-3 text-neutral-200">{row.item}</td>
-                      <td className="px-5 py-3 text-right text-neutral-300">{row.cost}</td>
-                    </tr>
-                  ))}
-                  <tr className="bg-neutral-900/80">
-                    <td className="px-5 py-3 font-semibold text-white">Total</td>
-                    <td className="px-5 py-3 text-right font-semibold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">$239</td>
-                  </tr>
-                </tbody>
-              </table>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ───── MEET THE TEAM SECTION ───── */}
-      <section id="team" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-5xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Meet the{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Team
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            The people behind PartyLAN.
-          </p>
+        {/* ───── SPECS ───── */}
+        <section id="specs" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-4xl">
+            <h2 className="font-headline text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-5xl">
+              Tech Specs
+            </h2>
+            <p className="mt-4 max-w-lg text-[#555]">
+              Everything inside the box.
+            </p>
 
-          {/* Team cards */}
-          <div className="mt-16 grid gap-6 sm:grid-cols-3">
-            {team.map((member) => (
-              <div
-                key={member.name}
-                className="group relative rounded-2xl p-[1px] transition-all duration-300 hover:shadow-[0_0_24px_rgba(168,85,247,0.15)]"
-              >
-                {/* Gradient border layer */}
-                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-neutral-800 to-neutral-800 transition-all duration-300 group-hover:from-purple-500/50 group-hover:to-cyan-500/50" />
+            {/* Specs grid */}
+            <div className="mt-16 grid gap-x-16 gap-y-6 sm:grid-cols-2">
+              {specs.map((s) => (
+                <div
+                  key={s.label}
+                  className="flex items-center justify-between border-b border-[#1e1e1e] py-4"
+                >
+                  <span className="text-sm text-[#555]">{s.label}</span>
+                  <span className="font-semibold text-[#f0f0f0]">{s.value}</span>
+                </div>
+              ))}
+            </div>
 
-                {/* Card content */}
-                <div className="relative flex flex-col items-center rounded-2xl bg-neutral-900/95 px-6 py-8 text-center">
-                  {/* Avatar circle with initials */}
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-cyan-500">
-                    <span className="text-2xl font-bold text-white">
+            {/* BOM */}
+            <div className="mt-24">
+              <h3 className="font-headline text-xl font-semibold text-[#f0f0f0] sm:text-2xl">
+                Bill of Materials
+              </h3>
+              <div className="mt-8 overflow-hidden rounded-xl border border-[#1e1e1e]">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-[#1e1e1e] bg-[#111]">
+                      <th className="px-6 py-4 text-left font-medium text-[#555]">
+                        Component
+                      </th>
+                      <th className="px-6 py-4 text-right font-medium text-[#555]">
+                        Cost
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bom.map((row) => (
+                      <tr
+                        key={row.item}
+                        className="border-b border-[#1e1e1e]/50 transition-colors hover:bg-[#111]"
+                      >
+                        <td className="px-6 py-4 text-[#888]">{row.item}</td>
+                        <td className="px-6 py-4 text-right text-[#f0f0f0]">
+                          {row.cost}
+                        </td>
+                      </tr>
+                    ))}
+                    <tr className="bg-[#111]">
+                      <td className="px-6 py-4 font-semibold text-[#f0f0f0]">
+                        Total
+                      </td>
+                      <td className="px-6 py-4 text-right font-bold text-[#00f0ff]">
+                        $239
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ───── TEAM ───── */}
+        <section id="team" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="font-headline text-center text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-4xl">
+              Meet the Team
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-center text-[#555]">
+              The people behind PartyLAN.
+            </p>
+
+            <div className="mt-16 grid gap-6 sm:grid-cols-3">
+              {team.map((member) => (
+                <div key={member.name} className="glass-card flex flex-col items-center px-6 py-10 text-center">
+                  {/* Avatar */}
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#00f0ff]/30 bg-[#0a0a0a]">
+                    <span className="font-headline text-xl font-bold text-[#00f0ff]">
                       {member.initials}
                     </span>
                   </div>
-
-                  <h3 className="mt-5 text-lg font-semibold">{member.name}</h3>
-                  <p className="mt-1 text-sm font-medium bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
+                  <h3 className="font-headline mt-6 text-lg font-semibold text-[#f0f0f0]">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-medium text-[#00f0ff]">
                     {member.role}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed text-neutral-400">
+                  <p className="mt-3 text-sm leading-relaxed text-[#888]">
                     {member.details}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Advisor credit */}
-          <p className="mt-12 text-center text-sm text-neutral-500">
-            Advised by{" "}
-            <span className="font-medium text-neutral-300">
-              Dr. Nik Tehrani
-            </span>{" "}
-            — Department of Engineering Technology, San Jos&eacute; State
-            University
-          </p>
-        </div>
-      </section>
-
-      {/* ───── PROJECT TIMELINE SECTION ───── */}
-      <section id="timeline" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-5xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Project{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              Timeline
-            </span>
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            Key milestones from concept to demo.
-          </p>
-
-          {/* Timeline */}
-          <div className="relative mt-16">
-            {/* Horizontal line (hidden on mobile) */}
-            <div className="absolute top-5 left-0 right-0 hidden h-[2px] bg-gradient-to-r from-purple-500/30 via-cyan-500/30 to-purple-500/30 sm:block" />
-
-            <div className="grid gap-8 sm:grid-cols-6">
-              {milestones.map((m, i) => (
-                <div key={m.date} className="relative flex flex-col items-center text-center">
-                  {/* Dot */}
-                  <div className="relative z-10 flex h-10 w-10 items-center justify-center rounded-full border-2 border-purple-500/50 bg-neutral-950">
-                    <div className="h-3 w-3 rounded-full bg-gradient-to-br from-purple-400 to-cyan-400" />
-                  </div>
-                  {/* Vertical connector on mobile */}
-                  {i < milestones.length - 1 && (
-                    <div className="h-8 w-[2px] bg-gradient-to-b from-purple-500/30 to-cyan-500/30 sm:hidden" />
-                  )}
-                  <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-purple-400">
-                    {m.date}
-                  </p>
-                  <p className="mt-1 text-sm leading-snug text-neutral-400">
-                    {m.title}
                   </p>
                 </div>
               ))}
             </div>
+
+            <p className="mt-12 text-center text-sm text-[#555]">
+              Advised by{" "}
+              <span className="font-medium text-[#888]">Dr. Nik Tehrani</span>
+              {" "}— Department of Engineering Technology, San Jos&eacute; State
+              University
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ───── FAQ SECTION ───── */}
-      <section id="faq" className="fade-in-section px-6 py-24">
-        <div className="mx-auto max-w-3xl">
-          {/* Section heading */}
-          <h2 className="text-center text-3xl font-bold sm:text-4xl">
-            Frequently Asked Questions
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-center text-neutral-400">
-            Got questions? We&apos;ve got answers.
-          </p>
+        {/* ───── TIMELINE ───── */}
+        <section id="timeline" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-5xl">
+            <h2 className="font-headline text-center text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-4xl">
+              Project Timeline
+            </h2>
+            <p className="mx-auto mt-4 max-w-md text-center text-[#555]">
+              Key milestones from concept to demo.
+            </p>
 
-          {/* Accordion — uses native HTML <details> so no JS is needed */}
-          <div className="mt-12 space-y-4">
-            {faqs.map((faq) => (
-              <details
-                key={faq.question}
-                className="group rounded-xl border border-neutral-800 bg-neutral-900/60 px-6 py-4 transition-colors open:border-purple-500/40 open:bg-neutral-900"
-              >
-                <summary className="flex cursor-pointer items-center justify-between text-lg font-medium marker:[content:'']">
-                  {faq.question}
+            <div className="relative mt-16">
+              {/* Horizontal track (desktop) */}
+              <div className="timeline-track hidden sm:block" aria-hidden="true" />
 
-                  {/* Chevron that rotates when open */}
-                  <span className="ml-4 shrink-0 text-neutral-500 transition-transform group-open:rotate-45">
-                    ＋
-                  </span>
-                </summary>
-
-                <p className="mt-4 text-neutral-400 leading-relaxed">
-                  {faq.answer}
-                </p>
-              </details>
-            ))}
+              <div className="grid gap-10 sm:grid-cols-6 sm:gap-4">
+                {milestones.map((m, i) => (
+                  <div
+                    key={m.date}
+                    className="relative flex flex-col items-center text-center"
+                  >
+                    <div className="timeline-dot-ring">
+                      <div className="timeline-dot" />
+                    </div>
+                    {/* Vertical connector mobile */}
+                    {i < milestones.length - 1 && (
+                      <div
+                        className="h-10 w-[1px] bg-gradient-to-b from-[#00f0ff]/20 to-transparent sm:hidden"
+                        aria-hidden="true"
+                      />
+                    )}
+                    <p className="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-[#00f0ff]">
+                      {m.date}
+                    </p>
+                    <p className="mt-1 text-sm leading-snug text-[#888]">
+                      {m.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ───── FAQ ───── */}
+        <section id="faq" className="reveal px-6 py-[120px]">
+          <div className="mx-auto max-w-3xl">
+            <h2 className="font-headline text-3xl font-bold tracking-tight text-[#f0f0f0] sm:text-5xl">
+              FAQ
+            </h2>
+            <p className="mt-4 text-[#555]">
+              Common questions, answered.
+            </p>
+
+            <div className="mt-12">
+              {faqs.map((faq) => (
+                <details key={faq.question} className="faq-item">
+                  <summary>
+                    {faq.question}
+                    <span className="faq-toggle" aria-hidden="true">
+                      +
+                    </span>
+                  </summary>
+                  <p className="pb-6 text-[#888] leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
 
       {/* ───── FOOTER ───── */}
-      <footer className="border-t border-neutral-800 px-6 py-12">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-6 sm:flex-row">
-          {/* Logo / Brand */}
-          <span className="text-lg font-bold tracking-tight">
-            🎮 Party
-            <span className="bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              LAN
-            </span>
-          </span>
-
-          {/* Links */}
-          <nav className="flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm text-neutral-400">
-            <a href="#features" className="transition hover:text-white">Features</a>
-            <a href="#architecture" className="transition hover:text-white">Architecture</a>
-            <a href="#how-it-works" className="transition hover:text-white">How It Works</a>
-            <a href="#specs" className="transition hover:text-white">Specs</a>
-            <a href="#team" className="transition hover:text-white">Team</a>
-            <a href="#timeline" className="transition hover:text-white">Timeline</a>
-            <a href="#faq" className="transition hover:text-white">FAQ</a>
+      <footer role="contentinfo" className="border-t border-[#1e1e1e] px-6 py-16">
+        <div className="mx-auto flex max-w-6xl flex-col items-center gap-8">
+          <nav
+            aria-label="Footer"
+            className="flex flex-wrap justify-center gap-x-8 gap-y-3 text-sm text-[#555]"
+          >
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="transition-colors hover:text-[#888] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f0ff]"
+              >
+                {link.label}
+              </a>
+            ))}
             <a
               href="https://github.com/Jayeesh27/partylan"
               target="_blank"
               rel="noopener noreferrer"
-              className="transition hover:text-white"
+              className="transition-colors hover:text-[#888] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#00f0ff]"
             >
               GitHub
             </a>
           </nav>
-
-          {/* Copyright */}
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-[#333]">
             &copy; 2026 PartyLAN — SJSU Senior Capstone Project
           </p>
         </div>
       </footer>
-    </div>
+    </>
   );
 }
